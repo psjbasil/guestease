@@ -5,7 +5,7 @@ import { logger } from '../utils/logger';
 let client: mqtt.MqttClient;
 
 export function connectMqtt(username: string, password: string) {
-  client = mqtt.connect(`mqtts://${config.mqtt.host}:${config.mqtt.port}`, {
+  client = mqtt.connect(`mqtts://${config.mqtt.host}`, {
     username,
     password
   });
@@ -18,4 +18,8 @@ export function subscribe(topic: string, cb: (topic: string, message: Buffer) =>
     if (err) logger.error('MQTT subscribe error', err);
   });
   client.on('message', cb);
+}
+
+export function disconnectMqtt() {
+  if (client) client.end();
 } 

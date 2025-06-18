@@ -1,0 +1,1622 @@
+{
+  "general": {
+    "room_number": "00-08-0c-20-00-1c",
+    "room_name": "ROOM201 - 00-08-0c-20-00-1c",
+    "entities": [
+      {
+        "id": "checkin",
+        "enabled": true,
+        "value_type": "boolean",
+        "limits": {
+          "default_value": {},
+          "value": {},
+          "status_value": {},
+          "forced": false,
+          "status_forced": false
+        },
+        "status_value": true,
+        "status_forced": false,
+        "value": true,
+        "forced": false,
+        "forcing": {
+          "forceable": false,
+          "forceable_values": []
+        },
+        "status_update": {
+          "topic": "cs/hotels/itprdapep00671/status/rooms/00-08-0c-20-00-1c/pms",
+          "payload_config": {
+            "fields": {
+              "value": "checkin",
+              "forced": null,
+              "ts": "datetime"
+            }
+          }
+        },
+        "controls": [],
+        "parameters": []
+      },
+      {
+        "id": "controller",
+        "enabled": true,
+        "value_type": "boolean",
+        "limits": {
+          "default_value": {},
+          "value": {},
+          "status_value": {},
+          "forced": false,
+          "status_forced": false
+        },
+        "status_value": true,
+        "status_forced": false,
+        "value": true,
+        "forced": false,
+        "forcing": {
+          "forceable": false,
+          "forceable_values": []
+        },
+        "status_update": {
+          "topic": "cs/hotels/itprdapep00671/status/rooms/00-08-0c-20-00-1c/controllers/1/self",
+          "payload_config": {
+            "fields": {
+              "value": "alive",
+              "forced": null,
+              "ts": "datetime"
+            }
+          }
+        },
+        "controls": [],
+        "parameters": []
+      }
+    ]
+  },
+  "zones": [
+    {
+      "id": "z_room",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "Room"
+        }
+      ],
+      "description": [
+        {
+          "lang": "eng",
+          "text": "Room"
+        }
+      ]
+    }
+  ],
+  "classes": [
+    {
+      "id": "lights",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "lights"
+        }
+      ]
+    },
+    {
+      "id": "dnd",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "DND"
+        }
+      ]
+    },
+    {
+      "id": "presence",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "Occupancy"
+        }
+      ]
+    },
+    {
+      "id": "mur",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "MUR"
+        }
+      ]
+    },
+    {
+      "id": "door-open",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "door-open"
+        }
+      ]
+    },
+    {
+      "id": "clean-room",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "clean-room"
+        }
+      ]
+    },
+    {
+      "id": "door-unlock",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "door-unlock"
+        }
+      ]
+    }
+  ],
+  "entries": [
+    {
+      "id": "t_10_l2",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "L2"
+        }
+      ],
+      "description": [],
+      "targets": [
+        "t_10_l2"
+      ],
+      "zone_id": "z_room",
+      "obj_type": "device",
+      "class_id": "lights",
+      "category_id": "dev_switch",
+      "event_id": null,
+      "entities": [
+        {
+          "id": "onoff",
+          "enabled": true,
+          "value_type": "boolean",
+          "limits": {
+            "default_value": {},
+            "value": {},
+            "status_value": {},
+            "forced": false,
+            "status_forced": false
+          },
+          "status_value": true,
+          "status_forced": false,
+          "value": true,
+          "forced": false,
+          "forcing": {
+            "forceable": true,
+            "forceable_values": []
+          },
+          "status_update": {
+            "topic": "cs/hotels/itprdapep00671/status/rooms/00-08-0c-20-00-1c/devices/d_7_expansion-relay-s04-add0/components/c4/switch/status",
+            "payload_config": {
+              "fields": {
+                "value": "value",
+                "forced": "forced",
+                "ts": "datetime"
+              }
+            }
+          },
+          "controls": [
+            {
+              "id": "on",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "On"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/devices/d_7_expansion-relay-s04-add0/components/c4/capabilities/switch/status",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": true
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            },
+            {
+              "id": "off",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "Off"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/devices/d_7_expansion-relay-s04-add0/components/c4/capabilities/switch/status",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": false
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            }
+          ],
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": "t_11_l1",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "L1"
+        }
+      ],
+      "description": [],
+      "targets": [
+        "t_11_l1"
+      ],
+      "zone_id": "z_room",
+      "obj_type": "device",
+      "class_id": "lights",
+      "category_id": "dev_switch",
+      "event_id": null,
+      "entities": [
+        {
+          "id": "onoff",
+          "enabled": true,
+          "value_type": "boolean",
+          "limits": {
+            "default_value": {},
+            "value": {},
+            "status_value": {},
+            "forced": false,
+            "status_forced": false
+          },
+          "status_value": true,
+          "status_forced": false,
+          "value": true,
+          "forced": false,
+          "forcing": {
+            "forceable": true,
+            "forceable_values": []
+          },
+          "status_update": {
+            "topic": "cs/hotels/itprdapep00671/status/rooms/00-08-0c-20-00-1c/devices/d_7_expansion-relay-s04-add0/components/c3/switch/status",
+            "payload_config": {
+              "fields": {
+                "value": "value",
+                "forced": "forced",
+                "ts": "datetime"
+              }
+            }
+          },
+          "controls": [
+            {
+              "id": "on",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "On"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/devices/d_7_expansion-relay-s04-add0/components/c3/capabilities/switch/status",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": true
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            },
+            {
+              "id": "off",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "Off"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/devices/d_7_expansion-relay-s04-add0/components/c3/capabilities/switch/status",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": false
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            }
+          ],
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": "t_12_dl1",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "DL1"
+        }
+      ],
+      "description": [],
+      "targets": [
+        "t_12_dl1"
+      ],
+      "zone_id": "z_room",
+      "obj_type": "device",
+      "class_id": "lights",
+      "category_id": "dev_level",
+      "event_id": null,
+      "entities": [
+        {
+          "id": "level",
+          "enabled": true,
+          "value_type": "integer",
+          "limits": {
+            "default_value": {
+              "min_value": 0,
+              "max_value": 100,
+              "step": 1
+            },
+            "value": {
+              "min_value": 0,
+              "max_value": 100,
+              "step": 1
+            },
+            "status_value": {
+              "min_value": 0,
+              "max_value": 100,
+              "step": 1
+            },
+            "forced": false,
+            "status_forced": false
+          },
+          "status_value": 98,
+          "status_forced": false,
+          "value": 98,
+          "forced": false,
+          "forcing": {
+            "forceable": true,
+            "forceable_values": []
+          },
+          "status_update": {
+            "topic": "cs/hotels/itprdapep00671/status/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c1/switch-level/level",
+            "payload_config": {
+              "fields": {
+                "value": "value",
+                "forced": "forced",
+                "ts": "datetime"
+              }
+            }
+          },
+          "controls": [
+            {
+              "id": "set",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "Set"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c1/capabilities/switch-level/level",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": false,
+                      "value": null
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            }
+          ],
+          "parameters": []
+        },
+        {
+          "id": "onoff",
+          "enabled": true,
+          "value_type": "boolean",
+          "limits": {
+            "default_value": {},
+            "value": {},
+            "status_value": {},
+            "forced": false,
+            "status_forced": false
+          },
+          "status_value": true,
+          "status_forced": false,
+          "value": true,
+          "forced": false,
+          "forcing": {
+            "forceable": true,
+            "forceable_values": []
+          },
+          "status_update": {
+            "topic": "cs/hotels/itprdapep00671/status/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c1/switch-level/status",
+            "payload_config": {
+              "fields": {
+                "value": "value",
+                "forced": "forced",
+                "ts": "datetime"
+              }
+            }
+          },
+          "controls": [
+            {
+              "id": "on",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "On"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c1/capabilities/switch-level/level",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": 100
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            },
+            {
+              "id": "off",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "Off"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c1/capabilities/switch-level/level",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": 0
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            }
+          ],
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": "t_13_dl2",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "DL2"
+        }
+      ],
+      "description": [],
+      "targets": [
+        "t_13_dl2"
+      ],
+      "zone_id": "z_room",
+      "obj_type": "device",
+      "class_id": "lights",
+      "category_id": "dev_level",
+      "event_id": null,
+      "entities": [
+        {
+          "id": "level",
+          "enabled": true,
+          "value_type": "integer",
+          "limits": {
+            "default_value": {
+              "min_value": 0,
+              "max_value": 100,
+              "step": 1
+            },
+            "value": {
+              "min_value": 0,
+              "max_value": 100,
+              "step": 1
+            },
+            "status_value": {
+              "min_value": 0,
+              "max_value": 100,
+              "step": 1
+            },
+            "forced": false,
+            "status_forced": false
+          },
+          "status_value": 98,
+          "status_forced": false,
+          "value": 98,
+          "forced": false,
+          "forcing": {
+            "forceable": true,
+            "forceable_values": []
+          },
+          "status_update": {
+            "topic": "cs/hotels/itprdapep00671/status/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c2/switch-level/level",
+            "payload_config": {
+              "fields": {
+                "value": "value",
+                "forced": "forced",
+                "ts": "datetime"
+              }
+            }
+          },
+          "controls": [
+            {
+              "id": "set",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "Set"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c2/capabilities/switch-level/level",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": false,
+                      "value": null
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            }
+          ],
+          "parameters": []
+        },
+        {
+          "id": "onoff",
+          "enabled": true,
+          "value_type": "boolean",
+          "limits": {
+            "default_value": {},
+            "value": {},
+            "status_value": {},
+            "forced": false,
+            "status_forced": false
+          },
+          "status_value": true,
+          "status_forced": false,
+          "value": true,
+          "forced": false,
+          "forcing": {
+            "forceable": true,
+            "forceable_values": []
+          },
+          "status_update": {
+            "topic": "cs/hotels/itprdapep00671/status/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c2/switch-level/status",
+            "payload_config": {
+              "fields": {
+                "value": "value",
+                "forced": "forced",
+                "ts": "datetime"
+              }
+            }
+          },
+          "controls": [
+            {
+              "id": "on",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "On"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c2/capabilities/switch-level/level",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": 100
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            },
+            {
+              "id": "off",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "Off"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c2/capabilities/switch-level/level",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": 0
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            }
+          ],
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": "t_14_dl3",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "DL3"
+        }
+      ],
+      "description": [],
+      "targets": [
+        "t_14_dl3"
+      ],
+      "zone_id": "z_room",
+      "obj_type": "device",
+      "class_id": "lights",
+      "category_id": "dev_level",
+      "event_id": null,
+      "entities": [
+        {
+          "id": "level",
+          "enabled": true,
+          "value_type": "integer",
+          "limits": {
+            "default_value": {
+              "min_value": 0,
+              "max_value": 100,
+              "step": 1
+            },
+            "value": {
+              "min_value": 0,
+              "max_value": 100,
+              "step": 1
+            },
+            "status_value": {
+              "min_value": 0,
+              "max_value": 100,
+              "step": 1
+            },
+            "forced": false,
+            "status_forced": false
+          },
+          "status_value": 98,
+          "status_forced": false,
+          "value": 98,
+          "forced": false,
+          "forcing": {
+            "forceable": true,
+            "forceable_values": []
+          },
+          "status_update": {
+            "topic": "cs/hotels/itprdapep00671/status/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c3/switch-level/level",
+            "payload_config": {
+              "fields": {
+                "value": "value",
+                "forced": "forced",
+                "ts": "datetime"
+              }
+            }
+          },
+          "controls": [
+            {
+              "id": "set",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "Set"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c3/capabilities/switch-level/level",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": false,
+                      "value": null
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            }
+          ],
+          "parameters": []
+        },
+        {
+          "id": "onoff",
+          "enabled": true,
+          "value_type": "boolean",
+          "limits": {
+            "default_value": {},
+            "value": {},
+            "status_value": {},
+            "forced": false,
+            "status_forced": false
+          },
+          "status_value": true,
+          "status_forced": false,
+          "value": true,
+          "forced": false,
+          "forcing": {
+            "forceable": true,
+            "forceable_values": []
+          },
+          "status_update": {
+            "topic": "cs/hotels/itprdapep00671/status/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c3/switch-level/status",
+            "payload_config": {
+              "fields": {
+                "value": "value",
+                "forced": "forced",
+                "ts": "datetime"
+              }
+            }
+          },
+          "controls": [
+            {
+              "id": "on",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "On"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c3/capabilities/switch-level/level",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": 100
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            },
+            {
+              "id": "off",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "Off"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c3/capabilities/switch-level/level",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": 0
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            }
+          ],
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": "t_15_dl4",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "DL4"
+        }
+      ],
+      "description": [],
+      "targets": [
+        "t_15_dl4"
+      ],
+      "zone_id": "z_room",
+      "obj_type": "device",
+      "class_id": "lights",
+      "category_id": "dev_level",
+      "event_id": null,
+      "entities": [
+        {
+          "id": "level",
+          "enabled": true,
+          "value_type": "integer",
+          "limits": {
+            "default_value": {
+              "min_value": 0,
+              "max_value": 100,
+              "step": 1
+            },
+            "value": {
+              "min_value": 0,
+              "max_value": 100,
+              "step": 1
+            },
+            "status_value": {
+              "min_value": 0,
+              "max_value": 100,
+              "step": 1
+            },
+            "forced": false,
+            "status_forced": false
+          },
+          "status_value": 98,
+          "status_forced": false,
+          "value": 98,
+          "forced": false,
+          "forcing": {
+            "forceable": true,
+            "forceable_values": []
+          },
+          "status_update": {
+            "topic": "cs/hotels/itprdapep00671/status/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c4/switch-level/level",
+            "payload_config": {
+              "fields": {
+                "value": "value",
+                "forced": "forced",
+                "ts": "datetime"
+              }
+            }
+          },
+          "controls": [
+            {
+              "id": "set",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "Set"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c4/capabilities/switch-level/level",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": false,
+                      "value": null
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            }
+          ],
+          "parameters": []
+        },
+        {
+          "id": "onoff",
+          "enabled": true,
+          "value_type": "boolean",
+          "limits": {
+            "default_value": {},
+            "value": {},
+            "status_value": {},
+            "forced": false,
+            "status_forced": false
+          },
+          "status_value": true,
+          "status_forced": false,
+          "value": true,
+          "forced": false,
+          "forcing": {
+            "forceable": true,
+            "forceable_values": []
+          },
+          "status_update": {
+            "topic": "cs/hotels/itprdapep00671/status/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c4/switch-level/status",
+            "payload_config": {
+              "fields": {
+                "value": "value",
+                "forced": "forced",
+                "ts": "datetime"
+              }
+            }
+          },
+          "controls": [
+            {
+              "id": "on",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "On"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c4/capabilities/switch-level/level",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": 100
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            },
+            {
+              "id": "off",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "Off"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/devices/d_8_dimmer-4ch-s04-add0/components/c4/capabilities/switch-level/level",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": 0
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            }
+          ],
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": "t_8_door-unlock-actuator",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "door-unlock-actuator"
+        }
+      ],
+      "description": [],
+      "targets": [
+        "t_8_door-unlock-actuator"
+      ],
+      "zone_id": "z_room",
+      "obj_type": "device",
+      "class_id": "door-unlock",
+      "category_id": "dev_door_button",
+      "event_id": null,
+      "entities": [
+        {
+          "id": "unlocked",
+          "enabled": true,
+          "value_type": "boolean",
+          "limits": {
+            "default_value": {},
+            "value": {},
+            "status_value": {},
+            "forced": false,
+            "status_forced": false
+          },
+          "status_value": false,
+          "status_forced": false,
+          "value": false,
+          "forced": false,
+          "forcing": {
+            "forceable": false,
+            "forceable_values": []
+          },
+          "status_update": {
+            "topic": "cs/hotels/itprdapep00671/status/rooms/00-08-0c-20-00-1c/devices/d_7_expansion-relay-s04-add0/components/c1/door-unlock/unlocked",
+            "payload_config": {
+              "fields": {
+                "value": "value",
+                "forced": "forced",
+                "ts": "datetime"
+              }
+            }
+          },
+          "controls": [
+            {
+              "id": "unlock",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "Unlock"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/devices/d_7_expansion-relay-s04-add0/components/c1/capabilities/door-unlock/unlocked",
+                  "data": {},
+                  "value_settings": {
+                    "required": false,
+                    "constraints": {
+                      "fixed": true,
+                      "value": true
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            }
+          ],
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": "t_2_roomstate-dnd",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "Roomstate_DND"
+        }
+      ],
+      "description": [],
+      "targets": [
+        "t_2_roomstate-dnd"
+      ],
+      "zone_id": "z_room",
+      "obj_type": "state",
+      "class_id": "dnd",
+      "category_id": "state_switch",
+      "event_id": null,
+      "entities": [
+        {
+          "id": "onoff",
+          "enabled": true,
+          "value_type": "boolean",
+          "limits": {
+            "default_value": {},
+            "value": {},
+            "status_value": {},
+            "forced": false,
+            "status_forced": false
+          },
+          "status_value": false,
+          "status_forced": false,
+          "value": false,
+          "forced": false,
+          "forcing": {
+            "forceable": true,
+            "forceable_values": []
+          },
+          "status_update": {
+            "topic": "cs/hotels/itprdapep00671/status/rooms/00-08-0c-20-00-1c/global/dnd/status",
+            "payload_config": {
+              "fields": {
+                "value": "value",
+                "forced": "forced",
+                "ts": "datetime"
+              }
+            }
+          },
+          "controls": [
+            {
+              "id": "on",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "On"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/states/dnd/capabilities/dnd/status",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": true
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            },
+            {
+              "id": "off",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "Off"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/states/dnd/capabilities/dnd/status",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": false
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            }
+          ],
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": "t_3_roomstate-presence",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "Roomstate_Presence"
+        }
+      ],
+      "description": [],
+      "targets": [
+        "t_3_roomstate-presence"
+      ],
+      "zone_id": "z_room",
+      "obj_type": "state",
+      "class_id": "presence",
+      "category_id": "state_switch",
+      "event_id": null,
+      "entities": [
+        {
+          "id": "onoff",
+          "enabled": true,
+          "value_type": "boolean",
+          "limits": {
+            "default_value": {},
+            "value": {},
+            "status_value": {},
+            "forced": false,
+            "status_forced": false
+          },
+          "status_value": true,
+          "status_forced": false,
+          "value": true,
+          "forced": false,
+          "forcing": {
+            "forceable": true,
+            "forceable_values": [
+              true
+            ]
+          },
+          "status_update": {
+            "topic": "cs/hotels/itprdapep00671/status/rooms/00-08-0c-20-00-1c/global/presence/status",
+            "payload_config": {
+              "fields": {
+                "value": "value",
+                "forced": "forced",
+                "ts": "datetime"
+              }
+            }
+          },
+          "controls": [
+            {
+              "id": "on",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "On"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/states/presence/capabilities/presence/status",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": true
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            },
+            {
+              "id": "off",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "Off"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/states/presence/capabilities/presence/status",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": false
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            }
+          ],
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": "t_4_roomstate-mur",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "Roomstate_MUR"
+        }
+      ],
+      "description": [],
+      "targets": [
+        "t_4_roomstate-mur"
+      ],
+      "zone_id": "z_room",
+      "obj_type": "state",
+      "class_id": "mur",
+      "category_id": "state_switch",
+      "event_id": null,
+      "entities": [
+        {
+          "id": "onoff",
+          "enabled": true,
+          "value_type": "boolean",
+          "limits": {
+            "default_value": {},
+            "value": {},
+            "status_value": {},
+            "forced": false,
+            "status_forced": false
+          },
+          "status_value": false,
+          "status_forced": false,
+          "value": false,
+          "forced": false,
+          "forcing": {
+            "forceable": false,
+            "forceable_values": []
+          },
+          "status_update": {
+            "topic": "cs/hotels/itprdapep00671/status/rooms/00-08-0c-20-00-1c/global/mur/status",
+            "payload_config": {
+              "fields": {
+                "value": "value",
+                "forced": "forced",
+                "ts": "datetime"
+              }
+            }
+          },
+          "controls": [
+            {
+              "id": "on",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "On"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/states/mur/capabilities/mur/status",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": true
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            },
+            {
+              "id": "off",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "Off"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/states/mur/capabilities/mur/status",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": false
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            }
+          ],
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": "t_5_roomstate-door-status",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "Roomstate_Door_Status"
+        }
+      ],
+      "description": [],
+      "targets": [
+        "t_5_roomstate-door-status"
+      ],
+      "zone_id": "z_room",
+      "obj_type": "state",
+      "class_id": "door-open",
+      "category_id": "state_switch",
+      "event_id": null,
+      "entities": [
+        {
+          "id": "onoff",
+          "enabled": true,
+          "value_type": "boolean",
+          "limits": {
+            "default_value": {},
+            "value": {},
+            "status_value": {},
+            "forced": false,
+            "status_forced": false
+          },
+          "status_value": false,
+          "status_forced": false,
+          "value": false,
+          "forced": false,
+          "forcing": {
+            "forceable": true,
+            "forceable_values": []
+          },
+          "status_update": {
+            "topic": "cs/hotels/itprdapep00671/status/rooms/00-08-0c-20-00-1c/global/door-open/open",
+            "payload_config": {
+              "fields": {
+                "value": "value",
+                "forced": "forced",
+                "ts": "datetime"
+              }
+            }
+          },
+          "controls": [
+            {
+              "id": "on",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "On"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/states/door-open/capabilities/door-open/open",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": true
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            },
+            {
+              "id": "off",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "Off"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/states/door-open/capabilities/door-open/open",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": false
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            }
+          ],
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": "t_6_roomstate-cleanroom",
+      "label": [
+        {
+          "lang": "eng",
+          "text": "Roomstate_CleanRoom"
+        }
+      ],
+      "description": [],
+      "targets": [
+        "t_6_roomstate-cleanroom"
+      ],
+      "zone_id": "z_room",
+      "obj_type": "state",
+      "class_id": "clean-room",
+      "category_id": "state_switch",
+      "event_id": null,
+      "entities": [
+        {
+          "id": "onoff",
+          "enabled": true,
+          "value_type": "boolean",
+          "limits": {
+            "default_value": {},
+            "value": {},
+            "status_value": {},
+            "forced": false,
+            "status_forced": false
+          },
+          "status_value": false,
+          "status_forced": false,
+          "value": false,
+          "forced": false,
+          "forcing": {
+            "forceable": false,
+            "forceable_values": []
+          },
+          "status_update": {
+            "topic": "cs/hotels/itprdapep00671/status/rooms/00-08-0c-20-00-1c/global/clean-room/status",
+            "payload_config": {
+              "fields": {
+                "value": "value",
+                "forced": "forced",
+                "ts": "datetime"
+              }
+            }
+          },
+          "controls": [
+            {
+              "id": "on",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "On"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/states/clean-room/capabilities/clean-room/status",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": true
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            },
+            {
+              "id": "off",
+              "label": [
+                {
+                  "lang": "eng",
+                  "text": "Off"
+                }
+              ],
+              "commands": {
+                "set_value": {
+                  "method": "POST",
+                  "uri": "/itprdapep00671/control/rooms/00-08-0c-20-00-1c/states/clean-room/capabilities/clean-room/status",
+                  "data": {},
+                  "value_settings": {
+                    "required": true,
+                    "constraints": {
+                      "fixed": true,
+                      "value": false
+                    }
+                  }
+                },
+                "set_limits": null
+              }
+            }
+          ],
+          "parameters": []
+        }
+      ]
+    }
+  ]
+}

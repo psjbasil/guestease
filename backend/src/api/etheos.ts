@@ -38,9 +38,10 @@ export async function getRoomConfig(roomNumber: string) {
   return res.data;
 }
 
-export async function controlDevice(roomNumber: string, controlUrl: string, body: any) {
+export async function controlDevice(fullUri: string, body: any) {
   if (!token) await getToken();
-  const url = `https://cs-api.rc-onair.com/cs-api/v1/${config.etheos.hotelCode}/control/rooms/${roomNumber}/${controlUrl}`;
+  // fullUri 形如 "/itprddeve00132/control/rooms/500/lights/t_10_l2/onoff"
+  const url = `https://cs-api.rc-onair.com/cs-api/v1${fullUri}`;
   const res = await axios.post(url, body, {
     headers: { Authorization: `Bearer ${token}` }
   });
