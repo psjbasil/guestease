@@ -37,31 +37,75 @@ async function simulateDeviceControl(controlUrl: string, body: any): Promise<any
   console.log(`[DEVICE_SIMULATOR] Simulating control for ${controlUrl}`, body);
   
   // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 200));
+  await new Promise(resolve => setTimeout(resolve, 100 + Math.random() * 200));
   
-  const deviceType = controlUrl.split('/')[3]; // Extract device type from URL
+  const urlParts = controlUrl.split('/');
+  const deviceType = urlParts[3]; // Extract device type from URL
+  const action = urlParts[4]; // Extract action from URL
   
   let response: any = {
     ok: true,
     timestamp: new Date().toISOString(),
     controlUrl,
-    body
+    body,
+    status: 'success'
   };
 
-  if (deviceType === 'ac') {
-    response = {
-      ...response,
-      device: 'Air Conditioner',
-      status: 'success',
-      currentState: body
-    };
-  } else if (deviceType === 'curtain') {
-    response = {
-      ...response,
-      device: 'Curtain',
-      status: 'success',
-      position: body.position || 0
-    };
+  // Handle different device types
+  switch (deviceType) {
+    case 'desk_light':
+      response = {
+        ...response,
+        device: 'Desk Light',
+        deviceId: 'desk_light',
+        action: action,
+        state: body.value ? 'on' : 'off',
+        message: `Desk light turned ${body.value ? 'on' : 'off'}`
+      };
+      break;
+      
+    case 'room_ac':
+      response = {
+        ...response,
+        device: 'Room Air Conditioner',
+        deviceId: 'room_ac',
+        action: action,
+        currentState: body
+      };
+      if (action === 'onoff') {
+        response.message = `Air conditioner turned ${body.value ? 'on' : 'off'}`;
+      } else if (action === 'temperature') {
+        response.message = `Air conditioner temperature set to ${body.value}°C`;
+      }
+      break;
+      
+    case 'room_curtains':
+      response = {
+        ...response,
+        device: 'Room Curtains',
+        deviceId: 'room_curtains',
+        action: action
+      };
+      if (action === 'position') {
+        response.position = body.value;
+        response.message = `Curtains set to ${body.value}% position`;
+      } else if (action === 'open') {
+        response.position = 100;
+        response.message = 'Curtains opened';
+      } else if (action === 'close') {
+        response.position = 0;
+        response.message = 'Curtains closed';
+      }
+      break;
+      
+    default:
+      response = {
+        ...response,
+        device: 'Unknown Device',
+        deviceId: deviceType,
+        action: action,
+        message: `Simulated control for ${deviceType}`
+      };
   }
 
   console.log(`[DEVICE_SIMULATOR] Simulation completed:`, response);

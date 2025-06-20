@@ -276,7 +276,10 @@ export default function App() {
       {/* Header */}
       <header className="header">
         <div className="header-content">
-          <h1 className="hotel-name">{texts.title}</h1>
+          <div className="header-left">
+            <img src="/images/guestease-logo.jpg" alt="GuestEase Logo" className="header-logo" />
+            <h1 className="hotel-name">{texts.title}</h1>
+          </div>
           <div className="header-controls">
             <div className="language-selector">
               <button 
@@ -314,16 +317,11 @@ export default function App() {
         {/* Robot Assistant Section */}
         <section className="robot-section">
           <div className={getRobotClass()}>
-            <div className="robot-face">
-              <div className="robot-eyes">
-                <div className="eye left-eye"></div>
-                <div className="eye right-eye"></div>
-              </div>
-              <div className="robot-mouth"></div>
-            </div>
-            <div className="robot-body">
-              <div className="robot-chest"></div>
-            </div>
+            <img 
+              src="/images/guestease-robot.jpg" 
+              alt="GuestEase Robot Assistant" 
+              className="robot-image"
+            />
           </div>
           
           <div className="robot-status">
@@ -425,23 +423,41 @@ export default function App() {
         <section className="additional-controls">
           <h3>{texts.quickControls}</h3>
           <div className="control-buttons">
-            <button className="control-btn lights" onClick={() => executeScene('wakeup')} style={{ background: 'linear-gradient(145deg, #ffeaa7, #fdcb6e)', color: '#333' }}>
-              💡 {texts.allLightsOn}
+            <button className="control-btn lights">
+              <div className="control-icon">💡</div>
+              <div className="control-info">
+                <h4>{texts.allLightsOn}</h4>
+              </div>
             </button>
-            <button className="control-btn lights-off" onClick={() => executeScene('sleep')} style={{ background: 'linear-gradient(145deg, #636e72, #2d3436)', color: '#fff' }}>
-              🌚 {texts.allLightsOff}
+            <button className="control-btn lights-off">
+              <div className="control-icon">🌚</div>
+              <div className="control-info">
+                <h4>{texts.allLightsOff}</h4>
+              </div>
             </button>
-            <button className="control-btn temperature" style={{ background: 'linear-gradient(145deg, #74b9ff, #0984e3)', color: '#fff' }}>
-              🌡️ {texts.climateControl}
+            <button className="control-btn temperature">
+              <div className="control-icon">🌡️</div>
+              <div className="control-info">
+                <h4>{texts.climateControl}</h4>
+              </div>
             </button>
-            <button className="control-btn curtains" style={{ background: 'linear-gradient(145deg, #a29bfe, #6c5ce7)', color: '#fff' }}>
-              🪟 {texts.curtainControls}
+            <button className="control-btn curtains">
+              <div className="control-icon">🪟</div>
+              <div className="control-info">
+                <h4>{texts.curtainControls}</h4>
+              </div>
             </button>
-            <button className="control-btn guest-services" style={{ background: 'linear-gradient(145deg, #fd79a8, #e84393)', color: '#fff' }}>
-              🛎️ Guest Services
+            <button className="control-btn guest-services">
+              <div className="control-icon">🛎️</div>
+              <div className="control-info">
+                <h4>Guest Services</h4>
+              </div>
             </button>
-            <button className="control-btn dnd" style={{ background: 'linear-gradient(145deg, #ff7675, #d63031)', color: '#fff' }}>
-              🚫 Do Not Disturb
+            <button className="control-btn dnd">
+              <div className="control-icon">🚫</div>
+              <div className="control-info">
+                <h4>Do Not Disturb</h4>
+              </div>
             </button>
           </div>
         </section>

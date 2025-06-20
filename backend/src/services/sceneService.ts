@@ -128,6 +128,18 @@ class SceneService {
       },
       't_11_l1': { // room light
         'onoff': '/itprdapep00671/control/rooms/00-08-0c-20-00-1c/devices/d_7_expansion-relay-s04-add0/components/c3/capabilities/switch/status'
+      },
+      'desk_light': { // simulated desk light
+        'onoff': '/simulated/control/desk_light/onoff'
+      },
+      'room_ac': { // simulated room air conditioner
+        'temperature': '/simulated/control/room_ac/temperature',
+        'onoff': '/simulated/control/room_ac/onoff'
+      },
+      'room_curtains': { // simulated room curtains
+        'position': '/simulated/control/room_curtains/position',
+        'open': '/simulated/control/room_curtains/open',
+        'close': '/simulated/control/room_curtains/close'
       }
     };
 

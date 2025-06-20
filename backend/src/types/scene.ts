@@ -37,7 +37,7 @@ export const PREDEFINED_SCENES: SceneMode[] = [
   {
     id: 'sleep',
     name: 'Sleep Mode',
-    description: 'Turn off all lights, close curtains, set air conditioning to sleep-friendly temperature, and activate night security mode.',
+    description: 'Turn off lights, close curtains, cool the room, and activate night security.',
     devices: [
       { deviceId: 't_11_l1', action: 'onoff', value: false }, // room light off
       { deviceId: 't_10_l2', action: 'onoff', value: false }, // bathroom light off
@@ -46,7 +46,7 @@ export const PREDEFINED_SCENES: SceneMode[] = [
   {
     id: 'relax',
     name: 'Relax Mode', 
-    description: 'Dim ambient lighting, play soft background music, adjust air conditioning to a comfortable setting, and partially draw curtains.',
+    description: 'Dim lights, play soft music, set a cozy temperature, and partially close curtains.',
     devices: [
       { deviceId: 't_11_l1', action: 'onoff', value: true }, // room light on
       { deviceId: 't_10_l2', action: 'onoff', value: false }, // bathroom light off
@@ -55,7 +55,7 @@ export const PREDEFINED_SCENES: SceneMode[] = [
   {
     id: 'wakeup',
     name: 'Wake-up Mode',
-    description: 'Gradually increase lighting, open curtains, adjust air conditioning to morning comfort level, and play gentle wake-up music or sound.',
+    description: 'Gently raise lights, open curtains, set morning temperature, and play wake-up sounds.',
     devices: [
       { deviceId: 't_11_l1', action: 'onoff', value: true }, // room light on
       { deviceId: 't_10_l2', action: 'onoff', value: true }, // bathroom light on
@@ -64,7 +64,7 @@ export const PREDEFINED_SCENES: SceneMode[] = [
   {
     id: 'work',
     name: 'Work Mode',
-    description: 'Turn on focused task lighting (e.g., desk lamp), adjust air conditioning to alertness-supporting temperature, partially open curtains for natural light, and mute entertainment systems.',
+    description: 'Turn on task lights, set alert temperature, open curtains, and mute distractions.',
     devices: [
       { deviceId: 'desk_light', action: 'onoff', value: true }, // desk light on
     ]
