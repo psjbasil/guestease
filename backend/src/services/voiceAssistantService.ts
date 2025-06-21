@@ -25,6 +25,7 @@ export interface VoiceProcessingResult {
   deviceResult: any;
   replyText: string;
   audio: string; // base64 encoded audio
+  sceneActivated?: string; // Scene ID that was activated via voice
   timing: {
     steps: TimingInfo[];
     totalDuration: number;
@@ -114,6 +115,7 @@ export async function processVoiceInput(
       deviceResult: null,
       replyText: errorText,
       audio: audioBase64,
+      sceneActivated: undefined,
       timing: {
         steps: timingSteps,
         totalDuration,
@@ -146,6 +148,7 @@ export async function processVoiceInput(
   let deviceResult = null;
   let replyText = getLocalizedResponse('actionCompleted', 'en');
   let deviceControlDuration = 0;
+  let sceneActivated: string | undefined = undefined;
   
   if (intentName === 'ControlScene') {
     console.log('[VOICE_ASSISTANT] Step 3: Processing scene control...');
@@ -170,6 +173,7 @@ export async function processVoiceInput(
         console.log('[VOICE_ASSISTANT] Scene execution result:', deviceResult);
         
         if (deviceResult.success) {
+          sceneActivated = scene.id; // Set activated scene ID for UI sync
           replyText = getLocalizedResponse('sceneActivateSuccess', 'en', { 
             scene: scene.name 
           });
@@ -319,6 +323,7 @@ export async function processVoiceInput(
     deviceResult,
     replyText,
     audio: audioBase64,
+    sceneActivated,
     timing: {
       steps: timingSteps,
       totalDuration,

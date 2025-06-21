@@ -433,6 +433,33 @@ body {
   line-height: 1.4;
 }
 
+.scene-status {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #4facfe;
+  background: rgba(79, 172, 254, 0.1);
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-top: 4px;
+  display: inline-block;
+  letter-spacing: 0.5px;
+}
+
+.scene-card.active {
+  background: rgba(79, 172, 254, 0.15);
+  border: 2px solid rgba(79, 172, 254, 0.3);
+  box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
+}
+
+.scene-card.active .scene-icon {
+  animation: activeGlow 2s infinite;
+}
+
+.scene-card.active .scene-status {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+}
+
 .loading-overlay {
   position: absolute;
   top: 0;
@@ -553,6 +580,8 @@ body {
   justify-content: center;
   text-align: center;
   gap: 1rem;
+  position: relative;
+  overflow: hidden;
 }
 
 .control-btn:hover {
@@ -582,6 +611,229 @@ body {
   font-size: 1.1rem;
   color: #4facfe;
   font-weight: 700;
+}
+
+/* Control Button Loading States */
+.control-btn.loading {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.control-btn:disabled:hover {
+  transform: none !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.control-btn .loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+}
+
+/* Control Feedback Styles */
+.control-feedback {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 15px;
+  margin-bottom: 1rem;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(79, 172, 254, 0.3);
+  animation: slideInDown 0.3s ease, fadeOut 0.5s ease 2.5s forwards;
+}
+
+.control-feedback p {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Toast Notification Styles */
+.toast-container {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 350px;
+}
+
+.toast {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  cursor: pointer;
+  transform: translateX(100%);
+  animation: slideInRight 0.3s ease forwards;
+  border-left: 4px solid;
+}
+
+.toast-success {
+  border-left-color: #4CAF50;
+}
+
+.toast-error {
+  border-left-color: #f44336;
+}
+
+.toast-loading {
+  border-left-color: #2196F3;
+}
+
+.toast-info {
+  border-left-color: #ff9800;
+}
+
+.toast-content {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toast-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.toast-message {
+  flex: 1;
+  color: #333;
+  font-weight: 500;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.toast-close:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: #666;
+}
+
+.toast-progress {
+  height: 3px;
+  background: rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.toast-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  width: 100%;
+  transform-origin: left;
+  animation: progressBar linear forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes progressBar {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+/* Button State Styles */
+.control-btn.active {
+  background: rgba(79, 172, 254, 0.15);
+  border: 2px solid rgba(79, 172, 254, 0.3);
+  box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
+}
+
+.control-btn.active .control-icon {
+  background: rgba(79, 172, 254, 0.2);
+  animation: activeGlow 2s infinite;
+}
+
+.control-status {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #4facfe;
+  background: rgba(79, 172, 254, 0.1);
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-top: 4px;
+  display: inline-block;
+  letter-spacing: 0.5px;
+}
+
+.control-btn.active .control-status {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+}
+
+@keyframes activeGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(79, 172, 254, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(79, 172, 254, 0.6);
+  }
 }
 
 /* Footer */
@@ -653,6 +905,12 @@ body {
   
   .status-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .toast-container {
+    right: 10px;
+    left: 10px;
+    max-width: none;
   }
 }
 

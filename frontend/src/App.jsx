@@ -124,6 +124,10 @@ export default function App() {
   const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [showLanguageSelector, setShowLanguageSelector] = useState(false);
   const [voiceResponse, setVoiceResponse] = useState(null); // Store complete voice response
+  const [controlLoading, setControlLoading] = useState(null); // Track which control button is loading
+  const [controlFeedback, setControlFeedback] = useState(''); // Show feedback message
+  const [toasts, setToasts] = useState([]); // Toast notifications
+  const [buttonStates, setButtonStates] = useState({}); // Button states (on/off)
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
 
@@ -155,10 +159,18 @@ export default function App() {
     }
   };
 
-  // Execute a scene
+  // Execute a scene with enhanced feedback
   const executeScene = async (sceneId) => {
     setLoadingScene(sceneId);
     setRobotState('thinking');
+    
+    // Find scene name
+    const scene = scenes.find(s => s.id === sceneId);
+    const sceneName = scene ? scene.name : sceneId;
+    
+    // Show loading toast
+    addToast(`Activating ${sceneName}...`, 'loading', 2000);
+    
     try {
       const response = await fetch(`/api/scenes/${sceneId}/execute`, {
         method: 'POST',
@@ -168,10 +180,31 @@ export default function App() {
         body: JSON.stringify({ roomNumber: '101' }),
       });
       const data = await response.json();
+      
+      // Update scene state
+      setButtonStates(prev => ({
+        ...prev,
+        [sceneId]: true,
+        // Deactivate other scenes (only one can be active)
+        ...Object.keys(prev).reduce((acc, key) => {
+          if (key !== sceneId && scenes.find(s => s.id === key)) {
+            acc[key] = false;
+          }
+          return acc;
+        }, {})
+      }));
+      
+      // Show success toast
+      addToast(`${sceneName} activated successfully! ✅`, 'success');
+      
       setResult(`Scene "${data.sceneName}" executed successfully!`);
       setRobotState('idle');
     } catch (error) {
       console.error('Failed to execute scene:', error);
+      
+      // Show error toast
+      addToast(`Failed to activate ${sceneName} ❌`, 'error');
+      
       setResult(`Error executing scene: ${error.message}`);
       setRobotState('idle');
     } finally {
@@ -210,6 +243,29 @@ export default function App() {
         
         console.log('Voice response:', data);
         setVoiceResponse(data); // Store complete response
+        
+        // Check if a scene was activated via voice and sync UI
+        if (data.sceneActivated) {
+          const activatedSceneId = data.sceneActivated;
+          
+          // Update button states to reflect voice-activated scene
+          setButtonStates(prev => ({
+            ...prev,
+            [activatedSceneId]: true,
+            // Deactivate other scenes (only one can be active)
+            ...Object.keys(prev).reduce((acc, key) => {
+              if (key !== activatedSceneId && scenes.find(s => s.id === key)) {
+                acc[key] = false;
+              }
+              return acc;
+            }, {})
+          }));
+          
+          // Show toast notification for voice-activated scene
+          const scene = scenes.find(s => s.id === activatedSceneId);
+          const sceneName = scene ? scene.name : activatedSceneId;
+          addToast(`${sceneName} activated via voice! ✅`, 'success');
+        }
         
         // Support audio response
         if (data.audioUrl) {
@@ -269,6 +325,56 @@ export default function App() {
       work: '#3A7AFE'
     };
     return colors[sceneId] || '#50E3C2';
+  };
+
+  // Toast notification management
+  const addToast = (message, type = 'success', duration = 4000) => {
+    const id = Date.now() + Math.random();
+    const toast = { id, message, type, duration };
+    
+    setToasts(prev => [...prev, toast]);
+    
+    // Auto remove toast
+    setTimeout(() => {
+      removeToast(id);
+    }, duration);
+  };
+  
+  const removeToast = (id) => {
+    setToasts(prev => prev.filter(toast => toast.id !== id));
+  };
+
+  // Handle control button clicks (simple version)
+  const handleControlClick = async (controlType, actionName) => {
+    setControlLoading(controlType);
+    setControlFeedback('');
+    
+    // Simulate API call with delay
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Simulate success feedback
+      const feedbackMessages = {
+        'lights-on': texts.allLightsOn + ' - Success!',
+        'lights-off': texts.allLightsOff + ' - Success!',
+        'climate': texts.climateControl + ' - Adjusted!',
+        'curtains': texts.curtainControls + ' - Controlled!',
+        'guest-services': 'Guest Services - Contacted!',
+        'dnd': 'Do Not Disturb - Activated!'
+      };
+      
+      setControlFeedback(feedbackMessages[controlType] || actionName + ' - Success!');
+      
+      // Clear feedback after 3 seconds
+      setTimeout(() => {
+        setControlFeedback('');
+      }, 3000);
+      
+    } catch (error) {
+      setControlFeedback('Error: ' + error.message);
+    } finally {
+      setControlLoading(null);
+    }
   };
 
   return (
@@ -362,7 +468,7 @@ export default function App() {
             {scenes.map((scene) => (
               <button
                 key={scene.id}
-                className="scene-card"
+                className={`scene-card ${buttonStates[scene.id] ? 'active' : ''}`}
                 onClick={() => executeScene(scene.id)}
                 disabled={loadingScene === scene.id}
                 style={{ '--scene-color': getSceneColor(scene.id) }}
@@ -373,6 +479,9 @@ export default function App() {
                 <div className="scene-info">
                   <h3>{scene.name}</h3>
                   <p>{scene.description}</p>
+                  <span className="scene-status">
+                    {buttonStates[scene.id] ? 'ACTIVE' : 'INACTIVE'}
+                  </span>
                 </div>
                 {loadingScene === scene.id && (
                   <div className="loading-overlay">
@@ -422,18 +531,48 @@ export default function App() {
         {/* Additional Quick Controls */}
         <section className="additional-controls">
           <h3>{texts.quickControls}</h3>
+          
+          {/* Control Feedback */}
+          {controlFeedback && (
+            <div className="control-feedback">
+              <p>{controlFeedback}</p>
+            </div>
+          )}
+          
           <div className="control-buttons">
-            <button className="control-btn lights">
-              <div className="control-icon">💡</div>
+            <button 
+              className={`control-btn lights ${controlLoading === 'lights-on' ? 'loading' : ''}`}
+              onClick={() => handleControlClick('lights-on', texts.allLightsOn)}
+              disabled={controlLoading !== null}
+            >
+              <div className="control-icon">
+                {controlLoading === 'lights-on' ? '⏳' : '💡'}
+              </div>
               <div className="control-info">
                 <h4>{texts.allLightsOn}</h4>
               </div>
+              {controlLoading === 'lights-on' && (
+                <div className="loading-overlay">
+                  <div className="spinner"></div>
+                </div>
+              )}
             </button>
-            <button className="control-btn lights-off">
-              <div className="control-icon">🌚</div>
+            <button 
+              className={`control-btn lights-off ${controlLoading === 'lights-off' ? 'loading' : ''}`}
+              onClick={() => handleControlClick('lights-off', texts.allLightsOff)}
+              disabled={controlLoading !== null}
+            >
+              <div className="control-icon">
+                {controlLoading === 'lights-off' ? '⏳' : '🌚'}
+              </div>
               <div className="control-info">
                 <h4>{texts.allLightsOff}</h4>
               </div>
+              {controlLoading === 'lights-off' && (
+                <div className="loading-overlay">
+                  <div className="spinner"></div>
+                </div>
+              )}
             </button>
             <button className="control-btn temperature">
               <div className="control-icon">🌡️</div>
@@ -467,6 +606,45 @@ export default function App() {
       {audioUrl && (
         <audio src={audioUrl} controls autoPlay style={{ display: 'none' }} />
       )}
+
+      {/* Toast Notifications */}
+      <div className="toast-container">
+        {toasts.map((toast) => (
+          <div
+            key={toast.id}
+            className={`toast toast-${toast.type}`}
+            onClick={() => removeToast(toast.id)}
+          >
+            <div className="toast-content">
+              <div className="toast-icon">
+                {toast.type === 'success' && '✅'}
+                {toast.type === 'error' && '❌'}
+                {toast.type === 'loading' && '⏳'}
+                {toast.type === 'info' && 'ℹ️'}
+              </div>
+              <div className="toast-message">{toast.message}</div>
+              <button 
+                className="toast-close"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  removeToast(toast.id);
+                }}
+              >
+                ✕
+              </button>
+            </div>
+            <div className="toast-progress">
+              <div 
+                className="toast-progress-bar" 
+                style={{ 
+                  animationDuration: `${toast.duration}ms`,
+                  animationName: 'progressBar'
+                }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
 
       {/* Footer */}
       <footer className="footer">
