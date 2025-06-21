@@ -30,7 +30,7 @@ const UI_TEXTS = {
     allLightsOn: 'All Lights On',
     allLightsOff: 'All Lights Off',
     climateControl: 'Climate Control',
-    curtainControls: 'Curtain Controls',
+    curtainControls: 'Curtain Control',
     roomService: 'Room Service',
     housekeeping: 'Housekeeping',
     footer: 'Room 201 • Voice Assistant • Available 24/7',
